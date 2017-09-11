@@ -43,6 +43,8 @@ __maintainer__ = "Morten Lind"
 __email__ = "morten.lind@sintef.no"
 __status__ = "Development"
 
+import itertools
+
 import numpy as np
 import math3d as m3d
 
@@ -94,9 +96,8 @@ class ParkMartinCalibrator(object):
         """Compute the moves, i.e. the relative transforms, for the
         frame and sensor pairs."""
         move_pairs = []
-        pp0 = self._pose_pairs[0]
-        for pp in self._pose_pairs[1:]:
-            move_pairs.append((_Move(pp0[0], pp[0]), _Move(pp0[1], pp[1])))
+        for (pp0, pp1) in itertools.combinations(self._pose_pairs, 2):  # self._pose_pairs[1:]:
+            move_pairs.append((_Move(pp0[0], pp1[0]), _Move(pp0[1], pp1[1])))
         self._move_pairs = np.array(move_pairs)
 
     @property
@@ -150,14 +151,7 @@ class ParkMartinCalibrator(object):
         else:
             self._pose_pairs = np.vstack((self._pose_pairs, pose_pairs))
         if len(self._pose_pairs) > 1:
-            move_pairs = []
-            pp0 = self._pose_pairs[0]
-            for pp in pose_pairs:
-                move_pairs.append((_Move(pp0[0], pp[0]), _Move(pp0[1], pp[1])))
-            if len(self._move_pairs) == 0:
-                self._move_pairs = np.array(move_pairs)
-            else:
-                np.vstack(self._move_pairs, move_pairs)
+            self._compute_moves()
         self._invalidate()
         return self
 
