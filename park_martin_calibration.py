@@ -37,11 +37,11 @@ described in
 
 __author__ = "Morten Lind"
 __credits__ = ["Morten Lind"]
-__copyright__ = "SINTEF Raufoss Manufacturing AS 2011-2012"
+__copyright__ = "SINTEF 2011-2017"
 __license__ = "GPLv3"
 __maintainer__ = "Morten Lind"
 __email__ = "morten.lind@sintef.no"
-__status__ = "Development"
+__status__ = "Beta"
 
 import itertools
 

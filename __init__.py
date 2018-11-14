@@ -9,6 +9,6 @@ __credits__ = ["Morten Lind"]
 __license__ = "GPLv3"
 __maintainer__ = "Morten Lind"
 __email__ = "morten.lind@sintef.no"
-__status__ = "Development"
+__status__ = "Beta"
 
 from .park_martin_calibration import ParkMartinCalibrator
